@@ -295,7 +295,6 @@
       getDatabase,
       ref,
       push,
-      onValue
     }
       from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
@@ -613,83 +612,6 @@
       }
 
     };
-
-
-    // =====================================================
-    // MENAMPILKAN LAGU YANG SUDAH DIKIRIM
-    // =====================================================
-
-    onValue(songsRef, (snapshot) => {
-
-      const container =
-        document.getElementById("receivedSongs");
-
-
-      container.innerHTML = "";
-
-
-      if (!snapshot.exists()) {
-
-        container.innerHTML =
-          "<div class='empty'>Belum ada lagu yang dikirim 💙</div>";
-
-        return;
-
-      }
-
-
-      const songs =
-        snapshot.val();
-
-
-      const entries =
-        Object.entries(songs).reverse();
-
-
-      entries.forEach(([id, song]) => {
-
-        const div =
-          document.createElement("div");
-
-
-        div.className =
-          "received-song";
-
-
-        div.innerHTML = `
-
-          <iframe
-            src="https://www.youtube.com/embed/${encodeURIComponent(song.videoId)}"
-            title="${escapeHtml(song.title)}"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-          ></iframe>
-
-          <div class="received-info">
-
-            <h3>
-              🎵 ${escapeHtml(song.title)}
-            </h3>
-
-            <div class="sender">
-              🎤 ${escapeHtml(song.channel)}
-            </div>
-
-            <div class="sender">
-              💌 Dikirim oleh: <b>${escapeHtml(song.sender)}</b>
-            </div>
-
-          </div>
-
-        `;
-
-
-        container.appendChild(div);
-
-      });
-
-    });
-
 
     // =====================================================
     // KEAMANAN TAMPILAN TEKS

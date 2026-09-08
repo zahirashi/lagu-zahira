@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ruang Zahira 🔐💙</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #dff6ff, #ffffff);
+      color: #174a63;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0, 100, 140, 0.12);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #64818c;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0 12px;
+      border: 2px solid #c8e8f5;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-btn {
+      background: #48b9e8;
+      color: white;
+    }
+
+    .logout-btn {
+      background: #f0f0f0;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    #loginBox {
+      max-width: 500px;
+      margin: 40px auto;
+    }
+
+    #content {
+      display: none;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .song {
+      margin-top: 18px;
+      border: 1px solid #d5ebf3;
+      border-radius: 16px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .song iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+    }
+
+    .song-info {
+      padding: 16px;
+    }
+
+    .song-info h3 {
+      margin: 0 0 8px;
+    }
+
+    .sender {
+      color: #64818c;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 20px;
+      color: #78919b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginBox" class="container">
+
+    <div class="card">
+
+      <h1>🔐🐬 Ruang Zahira</h1>
+
+      <p class="subtitle">
+        Halaman khusus untuk melihat lagu yang dikirim 💙
+      </p>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Password"
+      >
+
+      <button
+        class="login-btn"
+        onclick="login()"
+      >
+        💙 Masuk
+      </button>
+
+      <div id="status"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ISI HALAMAN ZAHIRA -->
+  <div id="content" class="container">
+
+    <div class="card">
+
+      <h1>🐬💙 Lagu Untuk Zahira</h1>
+
+      <p class="subtitle">
+        Lagu-lagu yang dikirim khusus untukmu 🎵
+      </p>
+
+      <button
+        class="logout-btn"
+        onclick="logout()"
+      >
+        Keluar
+      </button>
+
+      <div id="songs">
+        <div class="empty">
+          Memuat lagu...
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FIREBASE -->
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getDatabase,
+      ref,
+      onValue
+    }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    // ==========================================
+    // FIREBASE CONFIG
+    // ==========================================
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyAKD0tqZ9LEeUKr3jvPGyM5WZvptCLeeAY",
+    authDomain: "lagu-zahira.firebaseapp.com",
+    databaseURL: "https://lagu-zahira-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "lagu-zahira",
+    storageBucket: "lagu-zahira.firebasestorage.app",
+    messagingSenderId: "987915034747",
+    appId: "1:987915034747:web:f82f9b6a902aaba0cc02de"
+  };
+    
+    const app = initializeApp(firebaseConfig);
+
+    const database = getDatabase(app);
+
+    const auth = getAuth(app);
+
+    const songsRef = ref(database, "songs");
+
+
+    // ==========================================
+    // LOGIN
+    // ==========================================
+
+    window.login = async function() {
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const status =
+        document.getElementById("status");
+
+
+      if (!email || !password) {
+
+        status.textContent =
+          "⚠️ Isi email dan password.";
+
+        return;
+
+      }
+
+
+      status.textContent =
+        "🔐 Sedang masuk...";
+
+
+      try {
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        status.textContent = "";
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+          "❌ Email atau password salah.";
+
+      }
+
+    };
+
+
+    // ==========================================
+    // CEK STATUS LOGIN
+    // ==========================================
+
+    onAuthStateChanged(auth, (user) => {
+
+      const loginBox =
+        document.getElementById("loginBox");
+
+      const content =
+        document.getElementById("content");
+
+
+      if (user) {
+
+        loginBox.style.display = "none";
+
+        content.style.display = "block";
+
+        loadSongs();
+
+      } else {
+
+        loginBox.style.display = "block";
+
+        content.style.display = "none";
+
+      }
+
+    });
+
+
+    // ==========================================
+    // TAMPILKAN LAGU
+    // ==========================================
+
+    function loadSongs() {
+
+      onValue(songsRef, (snapshot) => {
+
+        const container =
+          document.getElementById("songs");
+
+        container.innerHTML = "";
+
+
+        if (!snapshot.exists()) {
+
+          container.innerHTML = `
+            <div class="empty">
+              Belum ada lagu yang dikirim 💙
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        const songs =
+          Object.values(snapshot.val()).reverse();
+
+
+        songs.forEach(song => {
+
+          const div =
+            document.createElement("div");
+
+          div.className = "song";
+
+
+          div.innerHTML = `
+
+            <iframe
+              src="https://www.youtube.com/embed/${encodeURIComponent(song.videoId)}"
+              title="Lagu untuk Zahira"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+
+            <div class="song-info">
+
+              <h3>
+                🎵 ${escapeHtml(song.title)}
+              </h3>
+
+              <div class="sender">
+                🎤 ${escapeHtml(song.channel)}
+              </div>
+
+              <div class="sender">
+                💌 Dikirim oleh:
+                <b>${escapeHtml(song.sender)}</b>
+              </div>
+
+            </div>
+
+          `;
+
+
+          container.appendChild(div);
+
+        });
+
+      });
+
+    }
+
+
+    // ==========================================
+    // LOGOUT
+    // ==========================================
+
+    window.logout = async function() {
+
+      await signOut(auth);
+
+    };
+
+
+    // ==========================================
+    // KEAMANAN TEKS
+    // ==========================================
+
+    function escapeHtml(text) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent = text;
+
+      return div.innerHTML;
+
+    }
+
+  </script>
+
+</body>
+</html>

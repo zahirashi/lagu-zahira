@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>🎵 Lagu Untuk Zahira 🐬</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-family: Arial, sans-serif;
+
+      background:
+        linear-gradient(
+          rgba(80, 190, 235, 0.65),
+          rgba(10, 110, 175, 0.75)
+        );
+
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+
+      background: rgba(255, 255, 255, 0.95);
+
+      padding: 30px;
+
+      border-radius: 28px;
+
+      text-align: center;
+
+      box-shadow: 0 15px 40px rgba(0, 70, 120, 0.3);
+    }
+
+    .ocean {
+      font-size: 45px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: #0879b9;
+      margin: 5px 0 10px;
+    }
+
+    p {
+      color: #527080;
+      line-height: 1.6;
+    }
+
+    .search-box {
+      margin-top: 25px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+
+      border: 2px solid #b5e5f7;
+      border-radius: 15px;
+
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #149bd7;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 12px;
+
+      padding: 14px;
+
+      border: none;
+      border-radius: 15px;
+
+      background: #149bd7;
+      color: white;
+
+      font-size: 16px;
+      font-weight: bold;
+
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0879b9;
+    }
+
+    .info {
+      margin-top: 25px;
+      padding: 15px;
+
+      background: #eaf8ff;
+
+      border-radius: 15px;
+
+      color: #527080;
+      font-size: 14px;
+    }
+
+    .bottom-ocean {
+      margin-top: 20px;
+      font-size: 25px;
+      letter-spacing: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="ocean">
+      🐬🌊🫧
+    </div>
+
+    <h1>🎵 Lagu Untuk Zahira 🐬</h1>
+
+    <p>
+      Cari lagu yang ingin kamu dengarkan 💙
+      <br>
+      🌊🎶🫧
+    </p>
+
+    <div class="search-box">
+
+      <input
+        type="text"
+        id="search"
+        placeholder="🔎 Ketik judul lagu atau penyanyi..."
+      >
+
+      <button onclick="searchSong()">
+        🐬 Cari Lagu 🌊
+      </button>
+
+    </div>
+
+    <div class="info">
+      🎵 Ketik nama lagu atau penyanyi,
+      lalu hasil pencarian akan dibuka di YouTube.
+      🐬🌊
+    </div>
+
+    <div class="bottom-ocean">
+      🐚 🐟 🫧 🌊 🐬 💙
+    </div>
+
+  </div>
+
+  <script>
+    function searchSong() {
+
+      const song = document.getElementById("search").value.trim();
+
+      if (song === "") {
+        alert("🐬 Tulis nama lagu dulu ya! 🌊");
+        return;
+      }
+
+      const youtube =
+        "https://www.youtube.com/results?search_query="
+        + encodeURIComponent(song);
+
+      window.open(youtube, "_blank");
+    }
+
+    document.getElementById("search").addEventListener("keypress", function(event) {
+
+      if (event.key === "Enter") {
+        searchSong();
+      }
+
+    });
+  </script>
+
+</body>
+</html>

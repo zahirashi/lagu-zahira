@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>🎵 Lagu Untuk Zahira 🐬</title>
+  <title>Kirim Lagu Untuk Zahira 🎵</title>
 
   <style>
     * {
@@ -13,135 +13,200 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: linear-gradient(
-        rgba(70, 190, 235, 0.7),
-        rgba(5, 100, 170, 0.85)
-      );
-      padding: 25px 15px;
+      background: linear-gradient(180deg, #dff6ff, #ffffff);
+      color: #174a63;
     }
 
     .container {
-      width: 100%;
-      max-width: 650px;
+      max-width: 700px;
       margin: auto;
-      background: rgba(255, 255, 255, 0.96);
-      padding: 30px;
-      border-radius: 28px;
-      box-shadow: 0 15px 40px rgba(0, 70, 120, 0.3);
+      padding: 30px 18px;
     }
 
-    .ocean {
+    .header {
       text-align: center;
-      font-size: 45px;
-      margin-bottom: 10px;
+      margin-bottom: 25px;
     }
 
-    h1 {
-      text-align: center;
-      color: #0879b9;
-      margin: 5px 0 10px;
+    .header h1 {
+      margin-bottom: 8px;
+      font-size: 30px;
     }
 
-    .description {
-      text-align: center;
-      color: #527080;
-      line-height: 1.6;
+    .header p {
+      color: #52798a;
     }
 
-    .search-box {
-      margin-top: 25px;
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0, 100, 140, 0.12);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
 
     input {
       width: 100%;
-      padding: 15px;
-      border: 2px solid #b5e5f7;
-      border-radius: 15px;
+      padding: 13px;
+      border: 2px solid #c8e8f5;
+      border-radius: 12px;
       font-size: 16px;
       outline: none;
+      margin-bottom: 15px;
     }
 
     input:focus {
-      border-color: #149bd7;
+      border-color: #55bde5;
     }
 
     button {
-      width: 100%;
-      margin-top: 12px;
-      padding: 15px;
       border: none;
-      border-radius: 15px;
-      background: #149bd7;
-      color: white;
+      border-radius: 12px;
+      padding: 13px 20px;
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
     }
 
-    button:hover {
-      background: #0879b9;
+    .search-btn {
+      width: 100%;
+      background: #48b9e8;
+      color: white;
     }
 
-    #status {
-      text-align: center;
-      margin-top: 15px;
-      color: #0879b9;
-    }
-
-    .results {
-      margin-top: 25px;
+    .search-btn:hover {
+      background: #2da7d8;
     }
 
     .song {
-      background: #eaf8ff;
-      border-radius: 18px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
       padding: 12px;
-      margin-bottom: 15px;
+      border: 1px solid #d9edf5;
+      border-radius: 14px;
+      margin-top: 12px;
     }
 
     .song img {
-      width: 100%;
-      border-radius: 12px;
-      display: block;
+      width: 120px;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .song-info {
+      flex: 1;
     }
 
     .song-title {
       font-weight: bold;
-      color: #0879b9;
-      margin-top: 10px;
-      line-height: 1.4;
+      margin-bottom: 5px;
     }
 
-    .song-channel {
-      color: #527080;
+    .channel {
+      font-size: 13px;
+      color: #718d99;
+      margin-bottom: 8px;
+    }
+
+    .select-btn {
+      background: #e7f8ff;
+      color: #1684b3;
+      padding: 9px 13px;
       font-size: 14px;
-      margin-top: 5px;
     }
 
-    .play-button {
-      margin-top: 10px;
-      background: #0879b9;
-    }
-
-    .player {
-      margin-top: 25px;
+    .selected {
+      background: #dff7e8;
+      border: 2px solid #67c98a;
+      padding: 15px;
+      border-radius: 14px;
+      margin-top: 15px;
       display: none;
     }
 
-    .player iframe {
+    .send-btn {
       width: 100%;
-      height: 315px;
-      border: none;
-      border-radius: 18px;
+      margin-top: 15px;
+      background: #55c878;
+      color: white;
+      display: none;
     }
 
-    .bottom-ocean {
+    .send-btn:hover {
+      background: #40b765;
+    }
+
+    .status {
       text-align: center;
-      margin-top: 25px;
-      font-size: 25px;
-      letter-spacing: 4px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 15px;
+      color: #678c9b;
+    }
+
+    .received-song {
+      border: 1px solid #d5ebf3;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 15px;
+      background: #fff;
+    }
+
+    .received-song iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+    }
+
+    .received-info {
+      padding: 15px;
+    }
+
+    .received-info h3 {
+      margin: 0 0 7px;
+    }
+
+    .sender {
+      color: #64818c;
+      font-size: 14px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #78919b;
+      padding: 15px;
+    }
+
+    @media (max-width: 500px) {
+      .song {
+        align-items: flex-start;
+      }
+
+      .song img {
+        width: 100px;
+        height: 58px;
+      }
+
+      .song {
+        flex-wrap: wrap;
+      }
+
+      .select-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -150,98 +215,164 @@
 
   <div class="container">
 
-    <div class="ocean">
-      🐬🌊🫧
+    <div class="header">
+      <h1>🐬🎵 Kirim Lagu Untuk Zahira</h1>
+      <p>Pilih lagu yang ingin kamu kirim untuk Zahira 💙</p>
     </div>
 
-    <h1>🎵 Lagu Untuk Zahira 🐬</h1>
 
-    <p class="description">
-      Cari lagu apa saja yang ingin kamu dengarkan. 💙
-      <br>
-      Hasil pencarian akan muncul di sini. 🎶🌊
-    </p>
+    <!-- FORM KIRIM LAGU -->
+    <div class="card">
 
-    <div class="search-box">
+      <label for="senderName">Nama kamu</label>
 
       <input
         type="text"
-        id="search"
-        placeholder="🔎 Ketik judul lagu atau penyanyi..."
+        id="senderName"
+        placeholder="Tulis nama kamu..."
+        maxlength="50"
       >
 
-      <button onclick="searchSong()">
-        🐬 Cari Lagu 🌊
+      <label for="searchInput">Cari lagu</label>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Contoh: Perfect Ed Sheeran"
+        onkeydown="if(event.key === 'Enter') searchSong()"
+      >
+
+      <button class="search-btn" onclick="searchSong()">
+        🔎 Cari Lagu
       </button>
 
+      <div id="searchResults"></div>
+
+      <div id="selectedSong" class="selected">
+        <b>🎵 Lagu yang dipilih:</b>
+        <div id="selectedTitle"></div>
+        <div id="selectedChannel"></div>
+
+        <button
+          id="sendButton"
+          class="send-btn"
+          onclick="sendSong()"
+        >
+          💌 Kirim Lagu
+        </button>
+      </div>
+
+      <div id="status" class="status"></div>
+
     </div>
 
-    <div id="status"></div>
 
-    <div id="player" class="player">
-      <iframe
-        id="youtubePlayer"
-        allow="autoplay; encrypted-media"
-        allowfullscreen>
-      </iframe>
-    </div>
+    <!-- LAGU YANG SUDAH DITERIMA -->
+    <div class="card">
 
-    <div id="results" class="results"></div>
+      <h2>💙 Lagu Untuk Zahira</h2>
 
-    <div class="bottom-ocean">
-      🐚 🐟 🫧 🌊 🐬 💙
+      <p>
+        Lagu-lagu yang sudah dikirim akan muncul di sini.
+      </p>
+
+      <div id="receivedSongs">
+        <div class="loading">Memuat lagu...</div>
+      </div>
+
     </div>
 
   </div>
 
 
-  <script>
+  <!-- FIREBASE -->
+  <script type="module">
 
-    // ==========================================
-    // MASUKKAN API KEY KAMU DI DALAM TANDA KUTIP
-    // ==========================================
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-    const API_KEY = "AIzaSyDbb6OkDI-Wzi-k-XCIb1IQYHuWvw5PoKQ";
+    import {
+      getDatabase,
+      ref,
+      push,
+      onValue
+    }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
 
-    async function searchSong() {
+    // =====================================================
+    // FIREBASE CONFIG
+    // =====================================================
+    // GANTI BAGIAN INI DENGAN firebaseConfig MILIK KAMU
+    // =====================================================
+
+    const firebaseConfig = {
+    apiKey: "AIzaSyAKD0tqZ9LEeUKr3jvPGyM5WZvptCLeeAY",
+    authDomain: "lagu-zahira.firebaseapp.com",
+    databaseURL: "https://lagu-zahira-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "lagu-zahira",
+    storageBucket: "lagu-zahira.firebasestorage.app",
+    messagingSenderId: "987915034747",
+    appId: "1:987915034747:web:f82f9b6a902aaba0cc02de"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const database = getDatabase(app);
+
+    const songsRef = ref(database, "songs");
+
+
+    // =====================================================
+    // YOUTUBE API
+    // =====================================================
+
+    const YOUTUBE_API_KEY = "AIzaSyDbb6OkDI-Wzi-k-XCIb1IQYHuWvw5PoKQ";
+
+
+    let selectedSong = null;
+
+
+    // =====================================================
+    // CARI LAGU
+    // =====================================================
+
+    window.searchSong = async function() {
 
       const searchInput =
-        document.getElementById("search");
+        document.getElementById("searchInput");
 
       const results =
-        document.getElementById("results");
-
-      const status =
-        document.getElementById("status");
+        document.getElementById("searchResults");
 
       const query =
         searchInput.value.trim();
 
 
-      if (query === "") {
+      if (!query) {
 
-        alert("🐬 Tulis nama lagu dulu ya! 🌊");
+        results.innerHTML =
+          "<div class='status'>Masukkan nama lagu dulu 🎵</div>";
 
         return;
+
       }
 
 
-      status.textContent =
-        "🫧 Sedang mencari lagu... 🐬🌊";
-
-      results.innerHTML = "";
+      results.innerHTML =
+        "<div class='loading'>🔎 Sedang mencari lagu...</div>";
 
 
       try {
 
         const url =
-          "https://www.googleapis.com/youtube/v3/search"
-          + "?part=snippet"
-          + "&maxResults=10"
-          + "&type=video"
-          + "&q=" + encodeURIComponent(query)
-          + "&key=" + API_KEY;
+          "https://www.googleapis.com/youtube/v3/search" +
+          "?part=snippet" +
+          "&maxResults=8" +
+          "&type=video" +
+          "&q=" + encodeURIComponent(query) +
+          "&key=" + YOUTUBE_API_KEY;
 
 
         const response =
@@ -254,30 +385,30 @@
 
         if (!response.ok) {
 
-          throw new Error(
-            data.error?.message ||
-            "Gagal mencari lagu"
-          );
+          console.error(data);
+
+          results.innerHTML =
+            "<div class='status'>❌ Gagal mencari lagu. Cek API YouTube.</div>";
+
+          return;
 
         }
-
-
-        status.textContent =
-          "🎵 Hasil pencarian:";
 
 
         if (!data.items || data.items.length === 0) {
 
           results.innerHTML =
-            "<p style='text-align:center;'>"
-            + "😢 Lagu tidak ditemukan."
-            + "</p>";
+            "<div class='empty'>Lagu tidak ditemukan 😢</div>";
 
           return;
+
         }
 
 
-        data.items.forEach(function(item) {
+        results.innerHTML = "";
+
+
+        data.items.forEach(item => {
 
           const videoId =
             item.id.videoId;
@@ -289,44 +420,187 @@
             item.snippet.channelTitle;
 
           const thumbnail =
-            item.snippet.thumbnails.high.url;
+            item.snippet.thumbnails.medium.url;
 
 
-          const song =
+          const div =
             document.createElement("div");
 
-          song.className = "song";
+          div.className = "song";
 
 
-          song.innerHTML = `
+          div.innerHTML = `
 
             <img
               src="${thumbnail}"
-              alt="${title}"
+              alt="Thumbnail lagu"
             >
 
-            <div class="song-title">
-              ${title}
-            </div>
+            <div class="song-info">
 
-            <div class="song-channel">
-              🎤 ${channel}
+              <div class="song-title">
+                ${escapeHtml(title)}
+              </div>
+
+              <div class="channel">
+                ${escapeHtml(channel)}
+              </div>
+
             </div>
 
             <button
-              class="play-button"
-              onclick="playSong('${videoId}')">
-
-              ▶️ Putar Lagu
-
+              class="select-btn"
+              onclick="selectSong(
+                '${videoId}',
+                ${JSON.stringify(title)},
+                ${JSON.stringify(channel)}
+              )"
+            >
+              Pilih
             </button>
 
           `;
 
 
-          results.appendChild(song);
+          results.appendChild(div);
 
         });
+
+      } catch (error) {
+
+        console.error(error);
+
+        results.innerHTML =
+          "<div class='status'>❌ Terjadi kesalahan saat mencari lagu.</div>";
+
+      }
+
+    };
+
+
+    // =====================================================
+    // PILIH LAGU
+    // =====================================================
+
+    window.selectSong = function(
+      videoId,
+      title,
+      channel
+    ) {
+
+      selectedSong = {
+
+        videoId: videoId,
+
+        title: title,
+
+        channel: channel
+
+      };
+
+
+      document.getElementById("selectedTitle")
+        .textContent = title;
+
+
+      document.getElementById("selectedChannel")
+        .textContent = "🎤 " + channel;
+
+
+      document.getElementById("selectedSong")
+        .style.display = "block";
+
+
+      document.getElementById("sendButton")
+        .style.display = "block";
+
+
+      document.getElementById("status")
+        .textContent = "✅ Lagu sudah dipilih!";
+
+    };
+
+
+    // =====================================================
+    // KIRIM LAGU KE FIREBASE
+    // =====================================================
+
+    window.sendSong = async function() {
+
+      const sender =
+        document.getElementById("senderName")
+          .value.trim();
+
+
+      const status =
+        document.getElementById("status");
+
+
+      if (!sender) {
+
+        status.textContent =
+          "⚠️ Tulis nama kamu dulu.";
+
+        return;
+
+      }
+
+
+      if (!selectedSong) {
+
+        status.textContent =
+          "⚠️ Pilih lagu dulu.";
+
+        return;
+
+      }
+
+
+      status.textContent =
+        "💌 Mengirim lagu...";
+
+
+      try {
+
+        await push(
+          songsRef,
+          {
+
+            sender: sender,
+
+            videoId: selectedSong.videoId,
+
+            title: selectedSong.title,
+
+            channel: selectedSong.channel,
+
+            createdAt: Date.now()
+
+          }
+        );
+
+
+        status.textContent =
+          "💙 Lagu berhasil dikirim untuk Zahira!";
+
+
+        document.getElementById("senderName")
+          .value = "";
+
+
+        document.getElementById("searchInput")
+          .value = "";
+
+
+        document.getElementById("searchResults")
+          .innerHTML = "";
+
+
+        document.getElementById("selectedSong")
+          .style.display = "none";
+
+
+        selectedSong = null;
 
 
       } catch (error) {
@@ -334,67 +608,104 @@
         console.error(error);
 
         status.textContent =
-          "❌ Terjadi kesalahan.";
-
-        results.innerHTML = `
-
-          <p style="
-            text-align:center;
-            color:#d33;
-          ">
-            Tidak bisa mencari lagu.
-            <br>
-            Periksa API key dan koneksi internet.
-          </p>
-
-        `;
+          "❌ Lagu gagal dikirim.";
 
       }
 
-    }
+    };
 
 
-    function playSong(videoId) {
+    // =====================================================
+    // MENAMPILKAN LAGU YANG SUDAH DIKIRIM
+    // =====================================================
 
-      const player =
-        document.getElementById("player");
+    onValue(songsRef, (snapshot) => {
 
-      const youtubePlayer =
-        document.getElementById("youtubePlayer");
-
-
-      youtubePlayer.src =
-        "https://www.youtube.com/embed/"
-        + videoId
-        + "?autoplay=1";
+      const container =
+        document.getElementById("receivedSongs");
 
 
-      player.style.display =
-        "block";
+      container.innerHTML = "";
 
 
-      window.scrollTo({
+      if (!snapshot.exists()) {
 
-        top: player.offsetTop - 20,
+        container.innerHTML =
+          "<div class='empty'>Belum ada lagu yang dikirim 💙</div>";
 
-        behavior: "smooth"
+        return;
+
+      }
+
+
+      const songs =
+        snapshot.val();
+
+
+      const entries =
+        Object.entries(songs).reverse();
+
+
+      entries.forEach(([id, song]) => {
+
+        const div =
+          document.createElement("div");
+
+
+        div.className =
+          "received-song";
+
+
+        div.innerHTML = `
+
+          <iframe
+            src="https://www.youtube.com/embed/${encodeURIComponent(song.videoId)}"
+            title="${escapeHtml(song.title)}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+
+          <div class="received-info">
+
+            <h3>
+              🎵 ${escapeHtml(song.title)}
+            </h3>
+
+            <div class="sender">
+              🎤 ${escapeHtml(song.channel)}
+            </div>
+
+            <div class="sender">
+              💌 Dikirim oleh: <b>${escapeHtml(song.sender)}</b>
+            </div>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(div);
 
       });
 
+    });
+
+
+    // =====================================================
+    // KEAMANAN TAMPILAN TEKS
+    // =====================================================
+
+    function escapeHtml(text) {
+
+      const div =
+        document.createElement("div");
+
+      div.textContent =
+        text;
+
+      return div.innerHTML;
+
     }
-
-
-    document
-      .getElementById("search")
-      .addEventListener("keypress", function(event) {
-
-        if (event.key === "Enter") {
-
-          searchSong();
-
-        }
-
-      });
 
   </script>
 

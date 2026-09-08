@@ -14,48 +14,38 @@
     body {
       margin: 0;
       min-height: 100vh;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
       font-family: Arial, sans-serif;
-
-      background:
-        linear-gradient(
-          rgba(80, 190, 235, 0.65),
-          rgba(10, 110, 175, 0.75)
-        );
-
-      padding: 20px;
+      background: linear-gradient(
+        rgba(70, 190, 235, 0.7),
+        rgba(5, 100, 170, 0.85)
+      );
+      padding: 25px 15px;
     }
 
     .container {
       width: 100%;
-      max-width: 500px;
-
-      background: rgba(255, 255, 255, 0.95);
-
+      max-width: 650px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.96);
       padding: 30px;
-
       border-radius: 28px;
-
-      text-align: center;
-
       box-shadow: 0 15px 40px rgba(0, 70, 120, 0.3);
     }
 
     .ocean {
+      text-align: center;
       font-size: 45px;
       margin-bottom: 10px;
     }
 
     h1 {
+      text-align: center;
       color: #0879b9;
       margin: 5px 0 10px;
     }
 
-    p {
+    .description {
+      text-align: center;
       color: #527080;
       line-height: 1.6;
     }
@@ -66,11 +56,9 @@
 
     input {
       width: 100%;
-      padding: 14px;
-
+      padding: 15px;
       border: 2px solid #b5e5f7;
       border-radius: 15px;
-
       font-size: 16px;
       outline: none;
     }
@@ -82,18 +70,13 @@
     button {
       width: 100%;
       margin-top: 12px;
-
-      padding: 14px;
-
+      padding: 15px;
       border: none;
       border-radius: 15px;
-
       background: #149bd7;
       color: white;
-
       font-size: 16px;
       font-weight: bold;
-
       cursor: pointer;
     }
 
@@ -101,20 +84,62 @@
       background: #0879b9;
     }
 
-    .info {
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      color: #0879b9;
+    }
+
+    .results {
       margin-top: 25px;
-      padding: 15px;
+    }
 
+    .song {
       background: #eaf8ff;
+      border-radius: 18px;
+      padding: 12px;
+      margin-bottom: 15px;
+    }
 
-      border-radius: 15px;
+    .song img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+    }
 
+    .song-title {
+      font-weight: bold;
+      color: #0879b9;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+
+    .song-channel {
       color: #527080;
       font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .play-button {
+      margin-top: 10px;
+      background: #0879b9;
+    }
+
+    .player {
+      margin-top: 25px;
+      display: none;
+    }
+
+    .player iframe {
+      width: 100%;
+      height: 315px;
+      border: none;
+      border-radius: 18px;
     }
 
     .bottom-ocean {
-      margin-top: 20px;
+      text-align: center;
+      margin-top: 25px;
       font-size: 25px;
       letter-spacing: 4px;
     }
@@ -131,10 +156,10 @@
 
     <h1>🎵 Lagu Untuk Zahira 🐬</h1>
 
-    <p>
-      Cari lagu yang ingin kamu dengarkan 💙
+    <p class="description">
+      Cari lagu apa saja yang ingin kamu dengarkan. 💙
       <br>
-      🌊🎶🫧
+      Hasil pencarian akan muncul di sini. 🎶🌊
     </p>
 
     <div class="search-box">
@@ -151,11 +176,17 @@
 
     </div>
 
-    <div class="info">
-      🎵 Ketik nama lagu atau penyanyi,
-      lalu hasil pencarian akan dibuka di YouTube.
-      🐬🌊
+    <div id="status"></div>
+
+    <div id="player" class="player">
+      <iframe
+        id="youtubePlayer"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
     </div>
+
+    <div id="results" class="results"></div>
 
     <div class="bottom-ocean">
       🐚 🐟 🫧 🌊 🐬 💙
@@ -163,30 +194,208 @@
 
   </div>
 
+
   <script>
-    function searchSong() {
 
-      const song = document.getElementById("search").value.trim();
+    // ==========================================
+    // MASUKKAN API KEY KAMU DI DALAM TANDA KUTIP
+    // ==========================================
 
-      if (song === "") {
+    const API_KEY = "AIzaSyDbb6OkDI-Wzi-k-XCIb1IQYHuWvw5PoKQ";
+
+
+    async function searchSong() {
+
+      const searchInput =
+        document.getElementById("search");
+
+      const results =
+        document.getElementById("results");
+
+      const status =
+        document.getElementById("status");
+
+      const query =
+        searchInput.value.trim();
+
+
+      if (query === "") {
+
         alert("🐬 Tulis nama lagu dulu ya! 🌊");
+
         return;
       }
 
-      const youtube =
-        "https://www.youtube.com/results?search_query="
-        + encodeURIComponent(song);
 
-      window.open(youtube, "_blank");
-    }
+      status.textContent =
+        "🫧 Sedang mencari lagu... 🐬🌊";
 
-    document.getElementById("search").addEventListener("keypress", function(event) {
+      results.innerHTML = "";
 
-      if (event.key === "Enter") {
-        searchSong();
+
+      try {
+
+        const url =
+          "https://www.googleapis.com/youtube/v3/search"
+          + "?part=snippet"
+          + "&maxResults=10"
+          + "&type=video"
+          + "&q=" + encodeURIComponent(query)
+          + "&key=" + API_KEY;
+
+
+        const response =
+          await fetch(url);
+
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.error?.message ||
+            "Gagal mencari lagu"
+          );
+
+        }
+
+
+        status.textContent =
+          "🎵 Hasil pencarian:";
+
+
+        if (!data.items || data.items.length === 0) {
+
+          results.innerHTML =
+            "<p style='text-align:center;'>"
+            + "😢 Lagu tidak ditemukan."
+            + "</p>";
+
+          return;
+        }
+
+
+        data.items.forEach(function(item) {
+
+          const videoId =
+            item.id.videoId;
+
+          const title =
+            item.snippet.title;
+
+          const channel =
+            item.snippet.channelTitle;
+
+          const thumbnail =
+            item.snippet.thumbnails.high.url;
+
+
+          const song =
+            document.createElement("div");
+
+          song.className = "song";
+
+
+          song.innerHTML = `
+
+            <img
+              src="${thumbnail}"
+              alt="${title}"
+            >
+
+            <div class="song-title">
+              ${title}
+            </div>
+
+            <div class="song-channel">
+              🎤 ${channel}
+            </div>
+
+            <button
+              class="play-button"
+              onclick="playSong('${videoId}')">
+
+              ▶️ Putar Lagu
+
+            </button>
+
+          `;
+
+
+          results.appendChild(song);
+
+        });
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+          "❌ Terjadi kesalahan.";
+
+        results.innerHTML = `
+
+          <p style="
+            text-align:center;
+            color:#d33;
+          ">
+            Tidak bisa mencari lagu.
+            <br>
+            Periksa API key dan koneksi internet.
+          </p>
+
+        `;
+
       }
 
-    });
+    }
+
+
+    function playSong(videoId) {
+
+      const player =
+        document.getElementById("player");
+
+      const youtubePlayer =
+        document.getElementById("youtubePlayer");
+
+
+      youtubePlayer.src =
+        "https://www.youtube.com/embed/"
+        + videoId
+        + "?autoplay=1";
+
+
+      player.style.display =
+        "block";
+
+
+      window.scrollTo({
+
+        top: player.offsetTop - 20,
+
+        behavior: "smooth"
+
+      });
+
+    }
+
+
+    document
+      .getElementById("search")
+      .addEventListener("keypress", function(event) {
+
+        if (event.key === "Enter") {
+
+          searchSong();
+
+        }
+
+      });
+
   </script>
 
 </body>

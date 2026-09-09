@@ -15,7 +15,13 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #dff6ff, #ffffff);
+      background:
+        linear-gradient(
+          180deg,
+          #dff6ff 0%,
+          #f5fcff 50%,
+          #ffffff 100%
+        );
       color: #174a63;
       min-height: 100vh;
     }
@@ -23,7 +29,7 @@
     .container {
       max-width: 700px;
       margin: auto;
-      padding: 30px 18px;
+      padding: 30px 18px 50px;
     }
 
     .header {
@@ -31,13 +37,21 @@
       margin-bottom: 25px;
     }
 
+    .header .dolphin {
+      font-size: 55px;
+      margin-bottom: 5px;
+    }
+
     .header h1 {
-      margin-bottom: 8px;
+      margin: 0 0 10px;
       font-size: 30px;
+      color: #176b91;
     }
 
     .header p {
+      margin: 0;
       color: #52798a;
+      line-height: 1.5;
     }
 
     .card {
@@ -45,27 +59,32 @@
       border-radius: 20px;
       padding: 22px;
       margin-bottom: 20px;
-      box-shadow: 0 8px 25px rgba(0, 100, 140, 0.12);
+      box-shadow:
+        0 8px 25px rgba(0, 100, 140, 0.12);
     }
 
     label {
       display: block;
       font-weight: bold;
       margin-bottom: 8px;
+      color: #174a63;
     }
 
     input {
       width: 100%;
-      padding: 13px;
+      padding: 13px 14px;
       border: 2px solid #c8e8f5;
       border-radius: 12px;
       font-size: 16px;
       outline: none;
-      margin-bottom: 15px;
+      margin-bottom: 17px;
+      color: #174a63;
+      background: #fbfeff;
     }
 
     input:focus {
       border-color: #55bde5;
+      background: white;
     }
 
     button {
@@ -75,6 +94,7 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s;
     }
 
     button:disabled {
@@ -100,6 +120,7 @@
       border: 1px solid #d9edf5;
       border-radius: 14px;
       margin-top: 12px;
+      background: #fbfeff;
     }
 
     .song img {
@@ -117,21 +138,23 @@
 
     .song-title {
       font-weight: bold;
-      margin-bottom: 5px;
-      line-height: 1.3;
+      margin-bottom: 6px;
+      line-height: 1.35;
       word-break: break-word;
+      color: #174a63;
     }
 
     .channel {
       font-size: 13px;
       color: #718d99;
-      margin-bottom: 8px;
+      line-height: 1.3;
+      word-break: break-word;
     }
 
     .select-btn {
       background: #e7f8ff;
       color: #1684b3;
-      padding: 9px 13px;
+      padding: 9px 14px;
       font-size: 14px;
       flex-shrink: 0;
     }
@@ -141,18 +164,25 @@
     }
 
     .selected {
-      background: #dff7e8;
+      background: #e9fff0;
       border: 2px solid #67c98a;
-      padding: 15px;
+      padding: 16px;
       border-radius: 14px;
-      margin-top: 15px;
+      margin-top: 18px;
       display: none;
+    }
+
+    .selected-label {
+      font-weight: bold;
+      color: #26744a;
     }
 
     .selected-title {
       font-weight: bold;
       margin-top: 8px;
+      line-height: 1.4;
       word-break: break-word;
+      color: #174a63;
     }
 
     .selected-channel {
@@ -177,27 +207,44 @@
       margin-top: 15px;
       font-weight: bold;
       line-height: 1.5;
+      min-height: 24px;
     }
 
     .loading {
       text-align: center;
-      padding: 15px;
+      padding: 18px;
       color: #678c9b;
     }
 
     .empty {
       text-align: center;
       color: #78919b;
-      padding: 15px;
+      padding: 18px;
     }
 
     .error {
       color: #d9534f;
     }
 
+    .success {
+      color: #249653;
+    }
+
+    .footer {
+      text-align: center;
+      color: #8aa8b4;
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
     @media (max-width: 500px) {
+
       .container {
-        padding: 22px 14px;
+        padding: 22px 14px 40px;
+      }
+
+      .header .dolphin {
+        font-size: 45px;
       }
 
       .header h1 {
@@ -232,9 +279,16 @@
   <div class="container">
 
     <!-- HEADER -->
+
     <div class="header">
 
-      <h1>🐬🎵 Kirim Lagu Untuk Zahira</h1>
+      <div class="dolphin">
+        🐬
+      </div>
+
+      <h1>
+        🎵 Kirim Lagu Untuk Zahira
+      </h1>
 
       <p>
         Pilih lagu yang ingin kamu kirim untuk Zahira 💙
@@ -243,12 +297,14 @@
     </div>
 
 
-    <!-- FORM KIRIM LAGU -->
+    <!-- FORM -->
+
     <div class="card">
 
       <!-- NAMA -->
+
       <label for="senderName">
-        Nama kamu
+        👤 Nama kamu
       </label>
 
       <input
@@ -260,9 +316,10 @@
       >
 
 
-      <!-- CARI LAGU -->
+      <!-- SEARCH -->
+
       <label for="searchInput">
-        Cari lagu
+        🔎 Cari lagu
       </label>
 
       <input
@@ -283,16 +340,20 @@
 
 
       <!-- HASIL PENCARIAN -->
+
       <div id="searchResults"></div>
 
 
-      <!-- LAGU YANG DIPILIH -->
+      <!-- LAGU TERPILIH -->
+
       <div
         id="selectedSong"
         class="selected"
       >
 
-        <b>🎵 Lagu yang dipilih:</b>
+        <div class="selected-label">
+          🎵 Lagu yang dipilih:
+        </div>
 
         <div
           id="selectedTitle"
@@ -317,6 +378,7 @@
 
 
       <!-- STATUS -->
+
       <div
         id="status"
         class="status"
@@ -324,38 +386,61 @@
 
     </div>
 
+
+    <div class="footer">
+      🌊 Made with 💙 for Zahira 🐬
+    </div>
+
   </div>
 
 
+  <!-- ================================================== -->
   <!-- FIREBASE -->
+  <!-- ================================================== -->
+
   <script type="module">
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+    // ==================================================
+    // FIREBASE APP
+    // ==================================================
 
+    import {
+      initializeApp
+    }
+    from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    // ==================================================
+    // FIREBASE DATABASE
+    // ==================================================
 
     import {
       getDatabase,
       ref,
       push
     }
-      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+    from
+      "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
 
 
-    // =====================================================
+    // ==================================================
     // FIREBASE CONFIG
-    // =====================================================
+    // ==================================================
 
     const firebaseConfig = {
 
-      apiKey: "AIzaSyAKD0tqZ9LEeUKr3jvPGyM5WZvptCLeeAY",
+      apiKey:
+        "AIzaSyAKD0tqZ9LEeUKr3jvPGyM5WZvptCLeeAY",
 
-      authDomain: "lagu-zahira.firebaseapp.com",
+      authDomain:
+        "lagu-zahira.firebaseapp.com",
 
       databaseURL:
         "https://lagu-zahira-default-rtdb.asia-southeast1.firebasedatabase.app",
 
-      projectId: "lagu-zahira",
+      projectId:
+        "lagu-zahira",
 
       storageBucket:
         "lagu-zahira.firebasestorage.app",
@@ -369,9 +454,9 @@
     };
 
 
-    // =====================================================
-    // HUBUNGKAN FIREBASE
-    // =====================================================
+    // ==================================================
+    // START FIREBASE
+    // ==================================================
 
     const app =
       initializeApp(firebaseConfig);
@@ -385,70 +470,101 @@
       ref(database, "songs");
 
 
-    // =====================================================
-    // YOUTUBE API
-    // =====================================================
+    // ==================================================
+    // YOUTUBE API KEY
+    // ==================================================
 
-    // MASUKKAN API KEY YOUTUBE MILIKMU DI SINI
-    //
-    // Contoh:
-    // const YOUTUBE_API_KEY = "AIza....";
-    //
-    // Jangan kirim API key tersebut ke chat.
+    /*
+      MASUKKAN API KEY YOUTUBE MILIKMU DI SINI.
 
-    const YOUTUBE_API_KEY = "AIzaSyDbb6OkDI-Wzi-k-XCIb1IQYHuWvw5PoKQ";
+      Contoh:
+
+      const YOUTUBE_API_KEY =
+        "AIzaSyxxxxxxxxxxxxxxxx";
+
+      Jangan kirim API key ke chat.
+    */
+
+    const YOUTUBE_API_KEY =
+      "AIzaSyDbb6OkDI-Wzi-k-XCIb1IQYHuWvw5PoKQ";
 
 
-    // =====================================================
+    // ==================================================
+    // FORMSPREE
+    // ==================================================
+
+    const FORMSPREE_URL =
+      "https://formspree.io/f/xppzobkg";
+
+
+    // ==================================================
     // VARIABEL
-    // =====================================================
+    // ==================================================
 
     let selectedSong = null;
 
 
-    // =====================================================
-    // ELEMENT
-    // =====================================================
+    // ==================================================
+    // ELEMENT HALAMAN
+    // ==================================================
 
     const senderNameInput =
-      document.getElementById("senderName");
+      document.getElementById(
+        "senderName"
+      );
 
 
     const searchInput =
-      document.getElementById("searchInput");
+      document.getElementById(
+        "searchInput"
+      );
 
 
     const searchButton =
-      document.getElementById("searchButton");
+      document.getElementById(
+        "searchButton"
+      );
 
 
     const searchResults =
-      document.getElementById("searchResults");
+      document.getElementById(
+        "searchResults"
+      );
 
 
     const selectedSongBox =
-      document.getElementById("selectedSong");
+      document.getElementById(
+        "selectedSong"
+      );
 
 
     const selectedTitle =
-      document.getElementById("selectedTitle");
+      document.getElementById(
+        "selectedTitle"
+      );
 
 
     const selectedChannel =
-      document.getElementById("selectedChannel");
+      document.getElementById(
+        "selectedChannel"
+      );
 
 
     const sendButton =
-      document.getElementById("sendButton");
+      document.getElementById(
+        "sendButton"
+      );
 
 
     const status =
-      document.getElementById("status");
+      document.getElementById(
+        "status"
+      );
 
 
-    // =====================================================
+    // ==================================================
     // TOMBOL CARI
-    // =====================================================
+    // ==================================================
 
     searchButton.addEventListener(
       "click",
@@ -456,9 +572,9 @@
     );
 
 
-    // =====================================================
-    // ENTER UNTUK MENCARI
-    // =====================================================
+    // ==================================================
+    // ENTER = CARI
+    // ==================================================
 
     searchInput.addEventListener(
       "keydown",
@@ -476,9 +592,9 @@
     );
 
 
-    // =====================================================
+    // ==================================================
     // FUNGSI CARI LAGU
-    // =====================================================
+    // ==================================================
 
     async function searchSong() {
 
@@ -486,8 +602,15 @@
         searchInput.value.trim();
 
 
+      // -----------------------------------------------
       // CEK API KEY
-      if (!YOUTUBE_API_KEY) {
+      // -----------------------------------------------
+
+      if (
+        !YOUTUBE_API_KEY ||
+        YOUTUBE_API_KEY ===
+          "MASUKKAN_API_KEY_YOUTUBE_DI_SINI"
+      ) {
 
         status.textContent =
           "⚠️ API YouTube belum dimasukkan.";
@@ -500,7 +623,10 @@
       }
 
 
-      // CEK INPUT
+      // -----------------------------------------------
+      // CEK PENCARIAN
+      // -----------------------------------------------
+
       if (!query) {
 
         status.textContent =
@@ -509,17 +635,29 @@
         status.className =
           "status";
 
+        searchInput.focus();
+
         return;
 
       }
 
 
+      // -----------------------------------------------
       // RESET
+      // -----------------------------------------------
+
       searchResults.innerHTML =
-        '<div class="loading">🔎 Sedang mencari lagu...</div>';
+        `
+        <div class="loading">
+          🔎 Sedang mencari lagu...
+        </div>
+        `;
 
 
       status.textContent = "";
+
+      status.className =
+        "status";
 
 
       searchButton.disabled = true;
@@ -527,9 +665,9 @@
 
       try {
 
-        // =================================================
+        // ---------------------------------------------
         // URL YOUTUBE API
-        // =================================================
+        // ---------------------------------------------
 
         const url =
           "https://www.googleapis.com/youtube/v3/search" +
@@ -544,12 +682,14 @@
           encodeURIComponent(query) +
 
           "&key=" +
-          YOUTUBE_API_KEY;
+          encodeURIComponent(
+            YOUTUBE_API_KEY
+          );
 
 
-        // =================================================
+        // ---------------------------------------------
         // REQUEST
-        // =================================================
+        // ---------------------------------------------
 
         const response =
           await fetch(url);
@@ -559,32 +699,35 @@
           await response.json();
 
 
-        // =================================================
-        // CEK RESPONSE
-        // =================================================
+        // ---------------------------------------------
+        // ERROR
+        // ---------------------------------------------
 
         if (!response.ok) {
 
           console.error(
-            "YouTube API error:",
+            "YouTube API:",
             data
           );
 
 
           searchResults.innerHTML =
-            '<div class="status error">' +
-            "❌ Gagal mencari lagu. Cek API YouTube." +
-            "</div>";
-
+            `
+            <div class="status error">
+              ❌ Gagal mencari lagu.
+              <br>
+              Cek API YouTube kamu.
+            </div>
+            `;
 
           return;
 
         }
 
 
-        // =================================================
-        // CEK HASIL
-        // =================================================
+        // ---------------------------------------------
+        // TIDAK ADA HASIL
+        // ---------------------------------------------
 
         if (
           !data.items ||
@@ -592,29 +735,34 @@
         ) {
 
           searchResults.innerHTML =
-            '<div class="empty">' +
-            "Lagu tidak ditemukan 😢" +
-            "</div>";
-
+            `
+            <div class="empty">
+              Lagu tidak ditemukan 😢
+            </div>
+            `;
 
           return;
 
         }
 
 
-        // =================================================
-        // KOSONGKAN HASIL LAMA
-        // =================================================
+        // ---------------------------------------------
+        // BERSIHKAN HASIL
+        // ---------------------------------------------
 
         searchResults.innerHTML = "";
 
 
-        // =================================================
+        // ---------------------------------------------
         // TAMPILKAN HASIL
-        // =================================================
+        // ---------------------------------------------
 
         data.items.forEach(
           function (item) {
+
+            // =========================================
+            // DATA VIDEO
+            // =========================================
 
             const videoId =
               item.id.videoId;
@@ -628,66 +776,139 @@
               item.snippet.channelTitle;
 
 
-            const thumbnail =
-              item.snippet.thumbnails.medium.url;
+            let thumbnail = "";
 
 
-            // ---------------------------------------------
-            // BUAT CONTAINER
-            // ---------------------------------------------
+            if (
+              item.snippet.thumbnails &&
+              item.snippet.thumbnails.medium
+            ) {
+
+              thumbnail =
+                item.snippet.thumbnails.medium.url;
+
+            }
+
+            else if (
+              item.snippet.thumbnails &&
+              item.snippet.thumbnails.default
+            ) {
+
+              thumbnail =
+                item.snippet.thumbnails.default.url;
+
+            }
+
+
+            // =========================================
+            // CONTAINER
+            // =========================================
 
             const div =
-              document.createElement("div");
+              document.createElement(
+                "div"
+              );
 
 
             div.className =
               "song";
 
 
-            // ---------------------------------------------
-            // HTML
-            // ---------------------------------------------
+            // =========================================
+            // THUMBNAIL
+            // =========================================
 
-            div.innerHTML = `
-
-              <img
-                src="${escapeHtml(thumbnail)}"
-                alt="Thumbnail lagu"
-              >
-
-              <div class="song-info">
-
-                <div class="song-title">
-                  ${escapeHtml(title)}
-                </div>
-
-                <div class="channel">
-                  ${escapeHtml(channel)}
-                </div>
-
-              </div>
-
-              <button
-                class="select-btn"
-                type="button"
-              >
-                Pilih
-              </button>
-
-            `;
+            const image =
+              document.createElement(
+                "img"
+              );
 
 
-            // ---------------------------------------------
-            // AMBIL TOMBOL
-            // ---------------------------------------------
+            image.src =
+              thumbnail;
+
+
+            image.alt =
+              "Thumbnail lagu";
+
+
+            // =========================================
+            // INFO
+            // =========================================
+
+            const info =
+              document.createElement(
+                "div"
+              );
+
+
+            info.className =
+              "song-info";
+
+
+            const titleElement =
+              document.createElement(
+                "div"
+              );
+
+
+            titleElement.className =
+              "song-title";
+
+
+            titleElement.textContent =
+              title;
+
+
+            const channelElement =
+              document.createElement(
+                "div"
+              );
+
+
+            channelElement.className =
+              "channel";
+
+
+            channelElement.textContent =
+              channel;
+
+
+            info.appendChild(
+              titleElement
+            );
+
+
+            info.appendChild(
+              channelElement
+            );
+
+
+            // =========================================
+            // TOMBOL PILIH
+            // =========================================
 
             const selectButton =
-              div.querySelector(".select-btn");
+              document.createElement(
+                "button"
+              );
 
 
-            // ---------------------------------------------
+            selectButton.type =
+              "button";
+
+
+            selectButton.className =
+              "select-btn";
+
+
+            selectButton.textContent =
+              "Pilih";
+
+
+            // =========================================
             // EVENT KLIK
-            // ---------------------------------------------
+            // =========================================
 
             selectButton.addEventListener(
               "click",
@@ -703,11 +924,28 @@
             );
 
 
-            // ---------------------------------------------
-            // MASUKKAN KE HALAMAN
-            // ---------------------------------------------
+            // =========================================
+            // GABUNGKAN
+            // =========================================
 
-            searchResults.appendChild(div);
+            div.appendChild(
+              image
+            );
+
+
+            div.appendChild(
+              info
+            );
+
+
+            div.appendChild(
+              selectButton
+            );
+
+
+            searchResults.appendChild(
+              div
+            );
 
           }
         );
@@ -716,28 +954,34 @@
 
       catch (error) {
 
-        console.error(error);
+        console.error(
+          "Search error:",
+          error
+        );
 
 
         searchResults.innerHTML =
-          '<div class="status error">' +
-          "❌ Terjadi kesalahan saat mencari lagu." +
-          "</div>";
+          `
+          <div class="status error">
+            ❌ Terjadi kesalahan saat mencari lagu.
+          </div>
+          `;
 
       }
 
       finally {
 
-        searchButton.disabled = false;
+        searchButton.disabled =
+          false;
 
       }
 
     }
 
 
-    // =====================================================
+    // ==================================================
     // PILIH LAGU
-    // =====================================================
+    // ==================================================
 
     function selectSong(
       videoId,
@@ -745,47 +989,56 @@
       channel
     ) {
 
+      // -----------------------------------------------
+      // SIMPAN DATA
+      // -----------------------------------------------
+
       selectedSong = {
 
-        videoId: videoId,
+        videoId:
+          videoId,
 
-        title: title,
+        title:
+          title,
 
-        channel: channel
+        channel:
+          channel
 
       };
 
 
-      // TAMPILKAN JUDUL
+      // -----------------------------------------------
+      // TAMPILKAN
+      // -----------------------------------------------
+
       selectedTitle.textContent =
         title;
 
 
-      // TAMPILKAN CHANNEL
       selectedChannel.textContent =
         "🎤 " + channel;
 
 
-      // TAMPILKAN BOX
       selectedSongBox.style.display =
         "block";
 
 
-      // TAMPILKAN TOMBOL KIRIM
       sendButton.style.display =
         "block";
 
 
-      // STATUS
       status.textContent =
         "✅ Lagu sudah dipilih!";
 
 
       status.className =
-        "status";
+        "status success";
 
 
-      // SCROLL KE LAGU TERPILIH
+      // -----------------------------------------------
+      // SCROLL
+      // -----------------------------------------------
+
       selectedSongBox.scrollIntoView({
         behavior: "smooth",
         block: "center"
@@ -794,9 +1047,9 @@
     }
 
 
-    // =====================================================
+    // ==================================================
     // TOMBOL KIRIM
-    // =====================================================
+    // ==================================================
 
     sendButton.addEventListener(
       "click",
@@ -804,19 +1057,23 @@
     );
 
 
-    // =====================================================
-    // KIRIM LAGU KE FIREBASE
-    // =====================================================
+    // ==================================================
+    // KIRIM LAGU
+    // ==================================================
 
     async function sendSong() {
+
+      // -----------------------------------------------
+      // NAMA
+      // -----------------------------------------------
 
       const sender =
         senderNameInput.value.trim();
 
 
-      // =================================================
+      // -----------------------------------------------
       // CEK NAMA
-      // =================================================
+      // -----------------------------------------------
 
       if (!sender) {
 
@@ -824,7 +1081,7 @@
           "⚠️ Tulis nama kamu dulu.";
 
         status.className =
-          "status";
+          "status error";
 
         senderNameInput.focus();
 
@@ -833,9 +1090,9 @@
       }
 
 
-      // =================================================
+      // -----------------------------------------------
       // CEK LAGU
-      // =================================================
+      // -----------------------------------------------
 
       if (!selectedSong) {
 
@@ -843,22 +1100,28 @@
           "⚠️ Pilih lagu dulu.";
 
         status.className =
-          "status";
+          "status error";
 
         return;
 
       }
 
 
-      // =================================================
-      // DISABLE TOMBOL
-      // =================================================
+      // -----------------------------------------------
+      // DISABLE
+      // -----------------------------------------------
 
-      sendButton.disabled = true;
+      sendButton.disabled =
+        true;
+
+
+      searchButton.disabled =
+        true;
 
 
       status.textContent =
-        "💌 Mengirim lagu...";
+        "💌 Sedang mengirim lagu...";
+
 
       status.className =
         "status";
@@ -866,15 +1129,16 @@
 
       try {
 
-        // =================================================
-        // SIMPAN KE FIREBASE
-        // =================================================
+        // =============================================
+        // 1. SIMPAN KE FIREBASE
+        // =============================================
 
         await push(
           songsRef,
           {
 
-            sender: sender,
+            sender:
+              sender,
 
             videoId:
               selectedSong.videoId,
@@ -892,25 +1156,131 @@
         );
 
 
-        // =================================================
-        // BERHASIL
-        // =================================================
+        // =============================================
+        // 2. KIRIM EMAIL FORMSPREE
+        // =============================================
+
+        const formData =
+          new FormData();
+
+
+        formData.append(
+          "sender",
+          sender
+        );
+
+
+        formData.append(
+          "song_title",
+          selectedSong.title
+        );
+
+
+        formData.append(
+          "artist_channel",
+          selectedSong.channel
+        );
+
+
+        formData.append(
+          "youtube_video_id",
+          selectedSong.videoId
+        );
+
+
+        formData.append(
+          "youtube_link",
+          "https://www.youtube.com/watch?v=" +
+          selectedSong.videoId
+        );
+
+
+        formData.append(
+          "subject",
+          "🎵 Ada lagu baru untuk Zahira!"
+        );
+
+
+        // =============================================
+        // REQUEST FORMSPREE
+        // =============================================
+
+        const emailResponse =
+          await fetch(
+            FORMSPREE_URL,
+            {
+
+              method:
+                "POST",
+
+              body:
+                formData,
+
+              headers:
+                {
+                  "Accept":
+                    "application/json"
+                }
+
+            }
+          );
+
+
+        // =============================================
+        // CEK FORMSPREE
+        // =============================================
+
+        if (!emailResponse.ok) {
+
+          const errorText =
+            await emailResponse.text();
+
+
+          console.error(
+            "Formspree error:",
+            errorText
+          );
+
+
+          /*
+            Firebase sudah berhasil menyimpan lagu,
+            tetapi email gagal dikirim.
+          */
+
+          status.textContent =
+            "💙 Lagu tersimpan, tetapi email gagal dikirim.";
+
+          status.className =
+            "status error";
+
+          return;
+
+        }
+
+
+        // =============================================
+        // BERHASIL SEMUANYA
+        // =============================================
 
         status.textContent =
           "💙 Lagu berhasil dikirim untuk Zahira!";
 
 
         status.className =
-          "status";
+          "status success";
 
 
-        // =================================================
-        // RESET FORM
-        // =================================================
+        // =============================================
+        // RESET NAMA
+        // =============================================
 
         senderNameInput.value =
           "";
 
+
+        // =============================================
+        // RESET PENCARIAN
+        // =============================================
 
         searchInput.value =
           "";
@@ -920,9 +1290,9 @@
           "";
 
 
-        selectedSongBox.style.display =
-          "none";
-
+        // =============================================
+        // RESET LAGU
+        // =============================================
 
         selectedTitle.textContent =
           "";
@@ -930,6 +1300,10 @@
 
         selectedChannel.textContent =
           "";
+
+
+        selectedSongBox.style.display =
+          "none";
 
 
         selectedSong =
@@ -940,7 +1314,7 @@
       catch (error) {
 
         console.error(
-          "Firebase error:",
+          "Send error:",
           error
         );
 
@@ -959,26 +1333,11 @@
         sendButton.disabled =
           false;
 
+
+        searchButton.disabled =
+          false;
+
       }
-
-    }
-
-
-    // =====================================================
-    // KEAMANANAN TAMPILAN TEKS
-    // =====================================================
-
-    function escapeHtml(text) {
-
-      const div =
-        document.createElement("div");
-
-
-      div.textContent =
-        text;
-
-
-      return div.innerHTML;
 
     }
 
